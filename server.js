@@ -20,13 +20,15 @@ path: './data/config.env'
 mongoose.connect(process.env.MONGO_URL,{dbName:"mernblog"})
 .then(() => console.log("MongoDB connected"))
 
+app.use(cors({
+  origin:[process.env.FRONTEND_URL],
+  methods:["GET","POST","PUT","DELETE"],
+  credentials:true,
+}))
+
 app.use("/api/user", userRouter)
 app.use("/api/blogs", blogRouter)
-app.use(cors({
-    origin:[process.env.FRONTEND_URL],
-    methods:["GET","POST","PUT","DELETE"],
-    credentials:true,
-}))
+
 
 
 
